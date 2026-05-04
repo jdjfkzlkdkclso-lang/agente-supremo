@@ -1,0 +1,9 @@
+{
+  "name": "@anthropic/claude-code",
+  "version": "2.0.0",
+  "description": "Claude Code CLI Core - Sistema HADES vΩ",
+  "main": "cli.js",
+  "bin": { "claude-code": "./cli.js" },
+  "type": "module",
+  "dependencies": {}
+}
