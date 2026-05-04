@@ -1,0 +1,111 @@
+#!/data/data/com.termux/files/usr/bin/bash
+# =================================================================================================
+# HADES⁹⁰ - NÚCLEO DE MATERIALIZACIÓN ABSOLUTA (VERSIÓN FINAL)
+# =================================================================================================
+HADES_DIR="$HOME/.hades_90x"
+
+# Colores (opcionales, pero se ven bien)
+RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'
+BLUE='\033[0;34m'; PURPLE='\033[0;35m'; CYAN='\033[0;36m'; NC='\033[0m'
+
+case "$1" in
+    status)
+        echo -e "${CYAN}╔══════════════════════════════════════════════════════════════════╗${NC}"
+        echo -e "${CYAN}║                    HADES⁹⁰ - ESTADO DEL SISTEMA                  ║${NC}"
+        echo -e "${CYAN}╚══════════════════════════════════════════════════════════════════╝${NC}"
+        echo -e "${GREEN}Directorio:${NC} $HADES_DIR"
+        echo -e "${GREEN}Usuario:${NC} $(whoami) (NO root)"
+        echo -e "${GREEN}UID:${NC} $(id -u)"
+        echo -e "${GREEN}Espacio usado:${NC} $(du -sh $HADES_DIR 2>/dev/null | cut -f1 || echo '0')"
+        echo -e "${GREEN}Python:${NC} $(python --version 2>/dev/null || echo 'no instalado')"
+        echo -e "${GREEN}Node:${NC} $(node --version 2>/dev/null || echo 'no instalado')"
+        echo -e "${GREEN}Acceso /sdcard:${NC} $(ls -ld /sdcard 2>/dev/null | awk '{print $1" "$9}' || echo 'No')"
+        echo ""
+        echo -e "${YELLOW}Misiones disponibles:${NC}"
+        ls -1 "$HADES_DIR/misiones" 2>/dev/null | sed 's/^/  📋 /' || echo "  (ninguna)"
+        echo -e "${YELLOW}Plantillas disponibles:${NC}"
+        ls -1 "$HADES_DIR/plantillas" 2>/dev/null | sed 's/^/  📄 /' || echo "  (ninguna)"
+        ;;
+    
+    prompt)
+        if [[ -f "$HADES_DIR/arsenal/prompt_maestro_90x.md" ]]; then
+            echo -e "${PURPLE}╔══════════════════════════════════════════════════════════════════╗${NC}"
+            echo -e "${PURPLE}║                    PROMPT MAESTRO HADES⁹⁰                        ║${NC}"
+            echo -e "${PURPLE}╚══════════════════════════════════════════════════════════════════╝${NC}"
+            cat "$HADES_DIR/arsenal/prompt_maestro_90x.md"
+        else
+            echo -e "${RED}❌ Prompt maestro no encontrado${NC}"
+        fi
+        ;;
+    
+    plantillas)
+        echo -e "${CYAN}📋 PLANTILLAS DE MONETIZACIÓN:${NC}"
+        for p in "$HADES_DIR/plantillas"/*.json; do
+            if [[ -f "$p" ]]; then
+                nombre=$(basename "$p" .json)
+                precio=$(grep -o '"precios":{[^}]*}' "$p" 2>/dev/null | grep -o '[0-9]\{4,\}' | head -1)
+                if [[ -n "$precio" ]]; then
+                    echo -e "  ${GREEN}📄 $nombre${NC} - Desde \$$precio"
+                else
+                    echo -e "  ${GREEN}📄 $nombre${NC}"
+                fi
+            fi
+        done
+        ;;
+    
+    mision)
+        if [[ -z "$2" ]]; then
+            echo -e "${RED}❌ Uso: ./hades mision <archivo.json>${NC}"
+            echo "Misiones disponibles:"
+            ls -1 "$HADES_DIR/misiones" 2>/dev/null | sed 's/^/  /'
+            exit 1
+        fi
+        MISION_FILE="$HADES_DIR/misiones/$2"
+        [[ ! -f "$MISION_FILE" ]] && MISION_FILE="$2"
+        if [[ -f "$MISION_FILE" ]]; then
+            echo -e "${BLUE}⚔️  Cargando misión: $(basename "$MISION_FILE")${NC}"
+            cat "$MISION_FILE" | python3 -m json.tool 2>/dev/null || cat "$MISION_FILE"
+            echo ""
+            echo -e "${GREEN}✅ Misión registrada${NC}"
+            echo "{\"fecha\":\"$(date +%Y-%m-%d_%H:%M:%S)\",\"mision\":\"$(basename "$MISION_FILE")\"}" >> "$HADES_DIR/logs/misiones.log"
+        else
+            echo -e "${RED}❌ Misión no encontrada: $2${NC}"
+        fi
+        ;;
+    
+    verify)
+        echo -e "${YELLOW}🔍 VERIFICANDO INTEGRIDAD...${NC}"
+        archivos=(
+            "arsenal/prompt_maestro_90x.md"
+            "plantillas/servicio_crypto_forensics.json"
+            "plantillas/servicio_vulnerability_scanner.json"
+            "plantillas/consultoria_personalizada.json"
+        )
+        ok=0; total=0
+        for a in "${archivos[@]}"; do
+            total=$((total+1))
+            if [[ -f "$HADES_DIR/$a" ]]; then
+                echo -e "  ${GREEN}✅ $a${NC}"
+                ok=$((ok+1))
+            else
+                echo -e "  ${RED}❌ FALTA: $a${NC}"
+            fi
+        done
+        echo ""
+        if [[ $ok -eq $total ]]; then
+            echo -e "${GREEN}✅ SISTEMA ÍNTEGRO ($ok/$total)${NC}"
+        else
+            echo -e "${YELLOW}⚠️  FALTAN $((total-ok)) ARCHIVOS (pueden ser opcionales)${NC}"
+        fi
+        ;;
+    
+    help|*)
+        echo -e "${CYAN}HADES⁹⁰ - COMANDOS DISPONIBLES:${NC}"
+        echo -e "  ${GREEN}status${NC}     - Ver estado del sistema"
+        echo -e "  ${GREEN}prompt${NC}     - Mostrar prompt maestro"
+        echo -e "  ${GREEN}plantillas${NC} - Listar plantillas de monetización"
+        echo -e "  ${GREEN}mision${NC}     - Ejecutar una misión"
+        echo -e "  ${GREEN}verify${NC}     - Verificar integridad"
+        echo -e "  ${GREEN}help${NC}       - Esta ayuda"
+        ;;
+esac
