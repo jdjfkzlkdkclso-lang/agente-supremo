@@ -14,36 +14,135 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.0/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@fontsource/orbitron@5.0.0/index.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.0/index.css" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root { --primary: #a855f7; --secondary: #06b6d4; --accent: #f59e0b; --dark: #0a0a0f; }
         body { font-family: 'Inter', sans-serif; background: var(--dark); color: #e2e8f0; overflow-x: hidden; }
         .font-orbitron { font-family: 'Orbitron', monospace; }
+        .glow-purple { box-shadow: 0 0 30px rgba(168,85,247,0.3); }
+        .gradient-text { background: linear-gradient(135deg, #a855f7, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050508; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #a855f7, #06b6d4); border-radius: 4px; }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(168,85,247,0.15); }
+        .copy-btn { transition: all 0.2s; cursor: pointer; }
+        .copy-btn:active { transform: scale(0.95); }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-8">
-    <div class="text-center max-w-4xl">
+<body class="min-h-screen">
+    
+    <!-- HERO -->
+    <section class="min-h-screen flex flex-col items-center justify-center p-8 text-center">
         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-sm font-semibold mb-6">
             🔴 SOLO 20 PIEZAS — NUNCA MÁS SE FABRICARÁN
         </div>
-        <h1 class="font-orbitron text-5xl md:text-7xl font-black mb-6 bg-gradient-to-r from-purple-500 via-cyan-400 to-purple-500 bg-clip-text text-transparent">
+        <h1 class="font-orbitron text-5xl md:text-7xl font-black mb-6 gradient-text">
             AGENTE SUPREMO vΩ
         </h1>
         <p class="text-xl md:text-2xl text-gray-300 mb-8">El ecosistema de IA más poderoso del mercado</p>
-        <div class="flex flex-wrap justify-center gap-4 md:gap-6 mb-8 text-sm md:text-base">
+        <div class="flex flex-wrap justify-center gap-4 md:gap-6 mb-12 text-sm md:text-base">
             <span class="text-purple-400">🧠 226 Agentes Profesionales</span>
             <span class="text-cyan-400">💻 55 System Prompts Élite</span>
             <span class="text-amber-400">🔗 Forense Blockchain</span>
         </div>
-        <div class="bg-gradient-to-r from-purple-600/20 to-cyan-600/20 border border-purple-500/30 rounded-2xl p-8 md:p-12 max-w-2xl mx-auto">
-            <p class="text-gray-400 mb-4">Inversión única</p>
-            <p class="font-orbitron text-5xl md:text-6xl font-black text-white mb-6">$2,497 <span class="text-xl text-gray-400">USD</span></p>
+
+        <!-- PRECIO -->
+        <div class="bg-gradient-to-br from-purple-600/10 to-cyan-600/10 border border-purple-500/30 rounded-2xl p-8 md:p-12 max-w-2xl w-full mx-auto mb-8 glow-purple">
+            <p class="text-gray-400 mb-2">Inversión única</p>
+            <p class="font-orbitron text-5xl md:text-6xl font-black text-white mb-2">$2,497 <span class="text-xl text-gray-400">USD</span></p>
             <p class="text-gray-400 text-sm mb-8">Pago único. Acceso de por vida. Sin suscripciones.</p>
             <a href="https://t.me/Encagu_1500_bot" class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 to-cyan-600 rounded-xl font-bold text-white hover:scale-105 transition-all">
-                ⚡ Adquirir Ahora
+                ⚡ Adquirir Ahora por Telegram
             </a>
         </div>
-    </div>
+    </section>
+
+    <!-- CONTACTO + WALLET -->
+    <section class="py-16 px-4 max-w-4xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <!-- CONTACTO -->
+            <div class="card-hover bg-white/5 border border-white/10 rounded-2xl p-8">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="text-3xl">📬</span>
+                    <h2 class="font-orbitron text-xl font-bold text-white">CONTACTO DIRECTO</h2>
+                </div>
+                <div class="space-y-4">
+                    <a href="https://t.me/Encagu_1500_bot" class="flex items-center gap-3 p-4 bg-purple-500/10 border border-purple-500/30 rounded-xl hover:bg-purple-500/20 transition">
+                        <span class="text-2xl">💬</span>
+                        <div>
+                            <p class="font-semibold text-white">Telegram</p>
+                            <p class="text-sm text-gray-400">@Encagu_1500_bot</p>
+                        </div>
+                    </a>
+                    <div class="flex items-center gap-3 p-4 bg-white/5 border border-white/10 rounded-xl">
+                        <span class="text-2xl">📧</span>
+                        <div>
+                            <p class="font-semibold text-white">Email</p>
+                            <p class="text-sm text-gray-400">agentesupremo@proton.me</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 p-4 bg-white/5 border border-white/10 rounded-xl">
+                        <span class="text-2xl">🐦</span>
+                        <div>
+                            <p class="font-semibold text-white">Twitter / X</p>
+                            <p class="text-sm text-gray-400">@AgenteSupremo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WALLET CRYPTO -->
+            <div class="card-hover bg-white/5 border border-white/10 rounded-2xl p-8">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="text-3xl">💎</span>
+                    <h2 class="font-orbitron text-xl font-bold text-white">PAGO CRYPTO</h2>
+                </div>
+                <p class="text-gray-400 text-sm mb-6">Aceptamos USDT, USDC, ETH, BTC. Paga directamente a esta wallet:</p>
+                
+                <!-- Wallet Address -->
+                <div class="bg-black/50 border border-amber-500/30 rounded-xl p-4 mb-4">
+                    <p class="text-amber-400 text-xs font-semibold mb-2">💀 DIRECCIÓN DE PAGO (RED ETH/BSC/POLYGON)</p>
+                    <div class="flex items-center gap-2">
+                        <code class="text-gray-300 text-xs md:text-sm break-all font-mono" id="walletAddress">0x0000000000000000000000000000000000000000</code>
+                        <button onclick="copyWallet()" class="copy-btn flex-shrink-0 p-2 bg-amber-500/20 border border-amber-500/30 rounded-lg hover:bg-amber-500/30 transition">
+                            <span class="text-amber-400 text-xs">📋</span>
+                        </button>
+                    </div>
+                    <p class="text-gray-500 text-xs mt-2">Reemplaza esta dirección por tu wallet real</p>
+                </div>
+
+                <p class="text-gray-400 text-sm">Al enviar el pago, contacta por Telegram con el hash de transacción para recibir acceso inmediato.</p>
+                
+                <!-- Instrucciones -->
+                <div class="mt-6 p-4 bg-amber-500/5 border border-amber-500/20 rounded-xl">
+                    <p class="text-amber-400 text-sm font-semibold mb-2">⚠️ INSTRUCCIONES</p>
+                    <ol class="text-gray-400 text-xs space-y-1">
+                        <li>1. Envía el monto exacto a la wallet superior</li>
+                        <li>2. Captura el TX Hash</li>
+                        <li>3. Contacta a @Encagu_1500_bot</li>
+                        <li>4. Recibe tu acceso en menos de 5 minutos</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="text-center py-8 border-t border-white/5">
+        <p class="text-gray-500 text-xs">© 2026 AGENTE SUPREMO vΩ — Protocolo HADES. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        function copyWallet() {
+            const addr = document.getElementById('walletAddress').textContent;
+            navigator.clipboard.writeText(addr).then(() => {
+                const btn = event.target.closest('.copy-btn');
+                btn.innerHTML = '<span class="text-green-400 text-xs">✓</span>';
+                setTimeout(() => { btn.innerHTML = '<span class="text-amber-400 text-xs">📋</span>'; }, 2000);
+            });
+        }
+    </script>
 </body>
 </html>
